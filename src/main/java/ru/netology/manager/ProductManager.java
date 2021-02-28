@@ -3,6 +3,7 @@ package ru.netology.manager;
 import ru.netology.domain.Book;
 import ru.netology.domain.Product;
 import ru.netology.domain.TShirt;
+import ru.netology.exceptions.NotFoundException;
 import ru.netology.repository.ProductRepository;
 
 
@@ -56,6 +57,15 @@ public class ProductManager {
             return false;
         }
         return true;
+    }
+
+    public void removeByIdNew(int id) {
+        try {
+            repository.findById(id);
+            repository.removeById(id);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new NotFoundException("Element with id: " + id + " not found");
+        }
     }
 
 
